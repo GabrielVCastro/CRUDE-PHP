@@ -5,17 +5,19 @@ $(document).ready( function () {
             $('#users').DataTable({});
             
         }else{
-            
-            console.log(JSON.parse(data))
+         
             $('#users').DataTable( {
                 data: JSON.parse(data),
                 columns: [
                     { data: 'id' },
                     { data: 'nome' },
-                    {"defaultContent": "<a href='/front/editar.html?edit="+JSON.stringify(data.id)+"' class='btn btn-warning'><i class='fa-solid fa-user-pen'></i></a><a href='' class='btn btn-danger ms-3'><i class='fa-solid fa-trash-can'></i></a>"}  
+                    { 'render': function (data, type, row) {
+                        return '<input id="btnEdit" class="btn btn-warning" type="button" onclick="editarUser(' + row.id + ')" value="Editar" /><input id="btnDelete" class="btn btn-danger ms-3" type="button" onclick="deleteUser(' + row.id + ')" value="Delete" />';
+                   
+                    }}
                 ],
-             
-              
+               
+               
             });
         }
     });
