@@ -64,7 +64,8 @@ class Ususario
     }
 
     private function connection()
-    {try
+    {
+        try
         {
             $PDO = new PDO( 'mysql:host=localhost' . ';dbname=' . 'teste', 'root', '' );
             return $PDO;
