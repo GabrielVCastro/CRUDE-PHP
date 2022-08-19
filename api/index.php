@@ -23,8 +23,9 @@
             echo $usuarios->deletar($userId);
             exit;
         }
+        
     }
-    
+  
     if($rota == 'POST'){
         if(substr($url, 0, 7 ) == '/create'){
             $fullUsers = $usuarios->create($nome, $senha);
@@ -32,6 +33,14 @@
                 return $fullUsers;
             }
             return false;
+        }
+    
+        if(substr($url, 0, 5 ) == '/edit'){
+          
+            $userId = substr($url,-1);   
+            $userId = str_replace('id=','',parse_url($url)['query']);
+            echo $usuarios->editar($userId , $nome, $senha);
+            exit;
         }
     }
 

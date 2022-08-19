@@ -11,7 +11,7 @@ class Ususario
 
     public function listar()
     {
-        $sql = "SELECT id, nome FROM users";
+        $sql = "SELECT id, nome, senha FROM users";
         $stmt = $this->conx->prepare($sql);
         $stmt->execute();
 
@@ -27,7 +27,6 @@ class Ususario
 
     public function create($nome, $senha)
     {
-
         if($nome==null || $nome==''){
             echo 'Usuário invalido';
             exit;

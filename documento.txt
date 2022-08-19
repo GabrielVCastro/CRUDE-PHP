@@ -1,0 +1,12 @@
+ROTAS:
+/list
+/create
+/delete
+/edit
+
+Falta autenticação, 
+vou primeiro fazer as rotas 
+funcionar no front end e em seguida vou 
+lidar com autenticação
+2:48 da manha
+ 
