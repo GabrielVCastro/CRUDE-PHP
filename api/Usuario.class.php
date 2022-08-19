@@ -4,7 +4,6 @@ class Ususario
 {       
     public $conx;
 
-
     function __construct()
     {
         $this->conx = $this->connection();
@@ -28,8 +27,6 @@ class Ususario
 
     public function create($nome, $senha)
     {
-
-      
 
         if($nome==null || $nome==''){
             echo 'Usuário invalido';
@@ -65,15 +62,49 @@ class Ususario
 
 
     public function deletar($id){
+        
         $sql = "DELETE FROM users WHERE id = :id";
 
-        $stmt = $this->conex->prepare($sql);
+        $stmt = $this->conx->prepare($sql);
         $stmt->bindParam(":id", $id);
         
         if ($stmt->execute()) {
             echo  'sucesso';
         }else{
             echo false;
+        }
+            
+    }
+
+    public function editar($id, $nome,$senha){
+    
+        $usuario = $nome;	
+        $password = $senha;
+
+        if(!$usuario){
+            echo 'Usuário invalido 2';
+            exit;
+        }
+        if($password==''){
+            $sql = "UPDATE users SET nome = :nome  WHERE id = :id ";
+
+        }else{
+            $sql = "UPDATE users SET nome = :nome, senha = :senha WHERE id = :id ";
+        }
+
+        $stmt = $this->conx->prepare($sql);
+        $stmt->bindParam(':nome', $usuario);
+
+        if($password!==''){
+            $stmt->bindParam(':senha', $password);
+        }
+
+        $stmt->bindParam(':id',$id);
+
+        if ($stmt->execute()) {
+            return true;
+        }else{
+            return false;
         }
     }
 

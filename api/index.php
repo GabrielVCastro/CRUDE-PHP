@@ -6,7 +6,7 @@
     $url = $_SERVER['REQUEST_URI'];
     $nome = $_REQUEST['nome'] ?? null;
     $senha = $_REQUEST['senha'] ?? null;
-
+    
     $usuarios = new Ususario;
     if($rota == 'GET'){
         if($url == '/list'){
@@ -15,6 +15,13 @@
                 return $fullUsers;
             }
             return false;
+        }
+
+        if(substr($url, 0, 7 ) == '/delete'){
+            $userId = substr($url,-1);   
+            $userId = str_replace('id=','',parse_url($url)['query']);
+            echo $usuarios->deletar($userId);
+            exit;
         }
     }
     
