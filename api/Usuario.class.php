@@ -1,18 +1,19 @@
 <?php
 
 class Ususario
-{
-    public $nome;
-    public $senha;
-    public $token;
+{       
+    public $conx;
 
+
+    function __construct()
+    {
+        $this->conx = $this->connection();
+    }
 
     public function listar()
     {
-        $PDO = $this->connection();
-       
         $sql = "SELECT id, nome FROM users";
-        $stmt = $PDO->prepare($sql);
+        $stmt = $this->conx->prepare($sql);
         $stmt->execute();
 
         $resultado = $stmt->fetchAll(PDO::FETCH_OBJ);	
@@ -28,7 +29,7 @@ class Ususario
     public function create($nome, $senha)
     {
 
-        $conx = $this->connection();
+      
 
         if($nome==null || $nome==''){
             echo 'Usuário invalido';
@@ -50,9 +51,8 @@ class Ususario
             echo 'Password invalido';
             exit;
         }
-
         $sql = "INSERT INTO users (nome, senha) VALUES (:nome, :senha)";
-        $stmt = $conx->prepare($sql);
+        $stmt = $this->conx->prepare($sql);
         $stmt->bindParam('nome', $usuario);
         $stmt->bindParam('senha', $password);
 
@@ -60,6 +60,20 @@ class Ususario
             echo 'Salvo com sucesso';
         }else{
             echo 'Algo deu errado';
+        }
+    }
+
+
+    public function deletar($id){
+        $sql = "DELETE FROM users WHERE id = :id";
+
+        $stmt = $this->conex->prepare($sql);
+        $stmt->bindParam(":id", $id);
+        
+        if ($stmt->execute()) {
+            echo  'sucesso';
+        }else{
+            echo false;
         }
     }
 

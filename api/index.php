@@ -17,6 +17,7 @@
             return false;
         }
     }
+    
     if($rota == 'POST'){
         if(substr($url, 0, 7 ) == '/create'){
             $fullUsers = $usuarios->create($nome, $senha);
@@ -26,7 +27,6 @@
             return false;
         }
     }
-
 
 
     echo 'Não existe esse parametro';
